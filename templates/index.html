@@ -1,0 +1,117 @@
+{% extends "base.html" %} {% block title %}Seu Hub de Notu00edcias
+Personalizado{% endblock %} {% block content %}
+<div class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      Mantenha-se Informado com <span class="highlight">TechNews</span>
+    </h1>
+    <p class="hero-subtitle">
+      Seu hub de notu00edcias personalizado para as u00faltimas
+      atualizau00e7u00f5es sobre os temas que importam para vocu00ea.
+    </p>
+    <div class="hero-actions">
+      <a href="{{ url_for('configurar') }}" class="btn btn-primary"
+        >Comece Agora</a
+      >
+      <a href="{{ url_for('feed_noticias') }}" class="btn btn-secondary"
+        >Navegar Notu00edcias</a
+      >
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="tech-illustration">
+      <!-- Espau00e7o para uma ilustrau00e7u00e3o com tema de tecnologia -->
+      <div class="tech-circle"></div>
+      <div class="tech-lines"></div>
+      <div class="tech-dots"></div>
+    </div>
+  </div>
+</div>
+
+<section class="features-section">
+  <h2 class="section-title">
+    Por que Escolher <span class="highlight">TechNews</span>?
+  </h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="material-icons feature-icon">tune</span>
+      <h3 class="feature-title">Feed Personalizado</h3>
+      <p class="feature-description">
+        Personalize seu feed de notu00edcias com base em seus interesses e
+        preferu00eancias.
+      </p>
+    </div>
+    <div class="feature-card">
+      <span class="material-icons feature-icon">update</span>
+      <h3 class="feature-title">Atualizau00e7u00f5es Diu00e1rias</h3>
+      <p class="feature-description">
+        Receba conteu00fado novo todos os dias de fontes confiu00e1veis em toda
+        a web.
+      </p>
+    </div>
+    <div class="feature-card">
+      <span class="material-icons feature-icon">bookmark</span>
+      <h3 class="feature-title">Salve para Depois</h3>
+      <p class="feature-description">
+        Marque artigos interessantes para ler quando tiver mais tempo.
+      </p>
+    </div>
+    <div class="feature-card">
+      <span class="material-icons feature-icon">devices</span>
+      <h3 class="feature-title">Design Responsivo</h3>
+      <p class="feature-description">
+        Desfrute de uma experiu00eancia perfeita em todos os seus dispositivos.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section">
+  <h2 class="section-title">Explore Categorias de Notu00edcias</h2>
+  <div class="categories-grid">
+    <a
+      href="{{ url_for('configurar', topic='tecnologia') }}"
+      class="category-card technology"
+    >
+      <h3>Tecnologia</h3>
+    </a>
+    <a
+      href="{{ url_for('configurar', topic='negocios') }}"
+      class="category-card business"
+    >
+      <h3>Negu00f3cios</h3>
+    </a>
+    <a
+      href="{{ url_for('configurar', topic='ciencia') }}"
+      class="category-card science"
+    >
+      <h3>Ciu00eancia</h3>
+    </a>
+    <a
+      href="{{ url_for('configurar', topic='saude') }}"
+      class="category-card health"
+    >
+      <h3>Sau00fade</h3>
+    </a>
+    <a
+      href="{{ url_for('configurar', topic='entretenimento') }}"
+      class="category-card entertainment"
+    >
+      <h3>Entretenimento</h3>
+    </a>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-content">
+    <h2 class="cta-title">Pronto para comeu00e7ar?</h2>
+    <p class="cta-description">
+      Configure suas preferu00eancias e comece a receber atualizau00e7u00f5es de
+      notu00edcias personalizadas hoje.
+    </p>
+    <a href="{{ url_for('configurar') }}" class="btn btn-primary btn-large"
+      >Personalize Seu Feed</a
+    >
+  </div>
+</section>
+{% endblock %}

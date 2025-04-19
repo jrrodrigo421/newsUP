@@ -1,0 +1,104 @@
+{% extends "base.html" %} {% block title %}Artigos Salvos{% endblock %} {% block
+content %}
+<div class="saved-articles-container">
+  <div class="page-header">
+    <h1 class="page-title">
+      Seus <span class="highlight">Artigos Salvos</span>
+    </h1>
+    <p class="page-description">
+      Artigos que vocu00ea marcou para ler mais tarde.
+    </p>
+  </div>
+
+  <div class="articles-grid">
+    {% if articles %} {% for article in articles %}
+    <article class="article-card" data-category="{{ article.category }}">
+      <div class="article-image">
+        <img src="{{ article.image_url }}" alt="{{ article.title }}" />
+        <span class="article-category">
+          {% if article.category == 'tecnologia' %}Tecnologia {% elif
+          article.category == 'negocios' %}Negu00f3cios {% elif article.category
+          == 'ciencia' %}Ciu00eancia {% elif article.category == 'saude'
+          %}Sau00fade {% elif article.category == 'entretenimento'
+          %}Entretenimento {% else %}{{ article.category|capitalize }} {% endif
+          %}
+        </span>
+      </div>
+      <div class="article-content">
+        <h2 class="article-title">
+          <a href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
+            >{{ article.title }}</a
+          >
+        </h2>
+        <p class="article-description">
+          {{ article.description|truncate(120) }}
+        </p>
+        <div class="article-meta">
+          <span class="article-source">{{ article.source }}</span>
+          <span class="article-date">{{ article.published }}</span>
+        </div>
+        <div class="article-actions">
+          <a
+            href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
+            class="btn btn-text"
+            >Ler Mais</a
+          >
+          <button
+            class="btn btn-icon remove-saved"
+            title="Remover dos Salvos"
+            data-id="{{ loop.index0 }}"
+          >
+            <span class="material-icons">bookmark</span>
+          </button>
+        </div>
+      </div>
+    </article>
+    {% endfor %} {% else %}
+    <div class="empty-state">
+      <span class="material-icons empty-icon">bookmarks</span>
+      <h2>Nenhum artigo salvo</h2>
+      <p>
+        Artigos que vocu00ea salvar apareceru00e3o aqui para fu00e1cil acesso
+        posterior.
+      </p>
+      <a href="{{ url_for('feed_noticias') }}" class="btn btn-primary"
+        >Navegar no Feed de Notu00edcias</a
+      >
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Em um app real, isso usaria AJAX para remover itens dos artigos salvos
+    const removeButtons = document.querySelectorAll('.remove-saved');
+
+    removeButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const articleId = this.getAttribute('data-id');
+        const articleCard = this.closest('.article-card');
+
+        // Para o MVP, apenas oculta o cartu00e3o (em um app real, faria uma chamada de API)
+        articleCard.style.display = 'none';
+
+        // Mostra estado vazio se todos os artigos forem removidos
+        const visibleCards = document.querySelectorAll(
+          '.article-card[style="display: none;"]'
+        );
+        if (visibleCards.length === 0) {
+          const emptyState = document.createElement('div');
+          emptyState.className = 'empty-state';
+          emptyState.innerHTML = `
+                        <span class="material-icons empty-icon">bookmarks</span>
+                        <h2>Nenhum artigo salvo</h2>
+                        <p>Artigos que vocu00ea salvar apareceru00e3o aqui para fu00e1cil acesso posterior.</p>
+                        <a href="{{ url_for('feed_noticias') }}" class="btn btn-primary">Navegar no Feed de Notu00edcias</a>
+                    `;
+          document.querySelector('.articles-grid').appendChild(emptyState);
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

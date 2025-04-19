@@ -1,0 +1,99 @@
+{% extends "base.html" %} {% block title %}Configure Suas Preferu00eancias de
+Notu00edcias{% endblock %} {% block content %}
+<div class="setup-container">
+  <div class="setup-header">
+    <h1 class="page-title">
+      Personalize Seu <span class="highlight">Feed de Notu00edcias</span>
+    </h1>
+    <p class="page-description">
+      Selecione os tu00f3picos que te interessam e com que frequu00eancia
+      vocu00ea deseja receber atualizau00e7u00f5es.
+    </p>
+  </div>
+
+  <form method="POST" action="{{ url_for('configurar') }}" class="setup-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    <div class="form-section">
+      <h2 class="section-title">Tu00f3picos de Interesse</h2>
+      <p class="section-description">
+        Escolha um ou mais tu00f3picos para acompanhar:
+      </p>
+
+      <div class="topics-grid">
+        {% for category in categories %}
+        <div class="topic-card">
+          <input
+            type="checkbox"
+            name="topics"
+            id="topic-{{ category }}"
+            value="{{ category }}"
+            class="topic-checkbox"
+          />
+          <label for="topic-{{ category }}" class="topic-label">
+            <span class="topic-icon material-icons">
+              {% if category == 'tecnologia' %}devices {% elif category ==
+              'negocios' %}business {% elif category == 'ciencia' %}science {%
+              elif category == 'saude' %}health_and_safety {% elif category ==
+              'entretenimento' %}movie {% else %}article {% endif %}
+            </span>
+            <span class="topic-name">
+              {% if category == 'tecnologia' %}Tecnologia {% elif category ==
+              'negocios' %}Negu00f3cios {% elif category == 'ciencia'
+              %}Ciu00eancia {% elif category == 'saude' %}Sau00fade {% elif
+              category == 'entretenimento' %}Entretenimento {% else %}{{
+              category|capitalize }} {% endif %}
+            </span>
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="section-title">Frequu00eancia de Atualizau00e7u00e3o</h2>
+      <p class="section-description">
+        Com que frequu00eancia vocu00ea gostaria de receber novo conteu00fado?
+      </p>
+
+      <div class="radio-options">
+        <div class="radio-option">
+          <input
+            type="radio"
+            name="refresh_rate"
+            id="refresh-daily"
+            value="diario"
+            checked
+          />
+          <label for="refresh-daily">Diu00e1rio</label>
+        </div>
+        <div class="radio-option">
+          <input
+            type="radio"
+            name="refresh_rate"
+            id="refresh-hourly"
+            value="horario"
+          />
+          <label for="refresh-hourly">Horu00e1rio</label>
+        </div>
+        <div class="radio-option">
+          <input
+            type="radio"
+            name="refresh_rate"
+            id="refresh-manual"
+            value="manual"
+          />
+          <label for="refresh-manual">Apenas Atualizau00e7u00e3o Manual</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary btn-large">
+        Salvar Preferu00eancias
+      </button>
+      <a href="{{ url_for('inicio') }}" class="btn btn-text">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+Flask==2.0.1
+Werkzeug==2.0.3
+requests==2.26.0
+BeautifulSoup4==4.10.0
+NewsAPI-python==0.2.6
+Flask-WTF==0.15.1
+python-dotenv==0.19.0

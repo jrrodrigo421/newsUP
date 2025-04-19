@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechNews - {% block title %}{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="app-header">
+        <div class="logo">
+          <a href="{{ url_for('inicio') }}">
+            <span class="logo-text"
+              >Tech<span class="highlight">News</span></span
+            >
+          </a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li>
+              <a href="{{ url_for('inicio') }}" class="nav-link">Início</a>
+            </li>
+            <li>
+              <a href="{{ url_for('feed_noticias') }}" class="nav-link"
+                >Feed de Notícias</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('artigos_salvos') }}" class="nav-link"
+                >Artigos Salvos</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('configurar') }}" class="nav-link"
+                >Preferências</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="mobile-menu-toggle">
+          <span class="material-icons">menu</span>
+        </div>
+      </header>
+
+      <main class="app-content">{% block content %}{% endblock %}</main>
+
+      <footer class="app-footer">
+        <div class="footer-content">
+          <p>
+            &copy; {{ current_year }} TechNews - Seu Portal Diário de Tecnologia
+          </p>
+          <div class="footer-links">
+            <a href="#">Sobre</a>
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Termos de Serviço</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>
