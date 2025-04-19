@@ -1,115 +1,90 @@
-{% extends "base.html" %} {% block title %}Seu Feed de Notu00edcias{% endblock %} {% block} {% block
-content %}
+{% extends "base.html" %} {% block title %}Seu Feed de Notícias{% endblock %} {%
+block content %}
 <div class="news-feed-container">
-  <div class="feed-header">
-    <h1 class="page-title">Seu <span class="highlight">Feed de Notu00edcias</span></h1>span></h1>
-    <div class="feed-controls">
-      <div class="topic-filters">
-        <span class="filter-label">Filtrar por:</span>n>
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all">Todos</button>n>
-          {% for topic in topics %}
-          <button class="filter-btn" data-filter="{{ topic }}">
-            {% if topic == 'tecnologia' %}Tecnologia
-            {% elif topic == 'negocios' %}Negu00f3cios
-            {% elif topic == 'ciencia' %}Ciu00eancia
-            {% elif topic == 'saude' %}Sau00fade
-            {% elif topic == 'entretenimento' %}Entretenimento
-            {% else %}{{ topic|capitalize }}
-            {% endif %}ogia' %}Tecnologia
-            {% elif topic == 'negocios' %}Negu00f3cios
-            {% elif topic == 'ciencia' %}Ciu00eancia
-            {% elif topic == 'saude' %}Sau00fade
-            {% elif topic == 'entretenimento' %}Entretenimento
-      <button id="refresh-btn" class="btn btn-icon" title="Atualizar Feed">
-            {% endif %}
-          </button>
-          {% endfor %}
-        </div>
-      </div>
-      <button id="refresh-btn" class="btn btn-icon" title="Atualizar Feed">
-        <span class="material-icons">refresh</span>
-      </button>
-    </div>
-  </div>
-        <span class="article-category">
-          {% if article.category == 'tecnologia' %}Tecnologia
-          {% elif article.category == 'negocios' %}Negu00f3cios
-          {% elif article.category == 'ciencia' %}Ciu00eancia
-          {% elif article.category == 'saude' %}Sau00fade
-          {% elif article.category == 'entretenimento' %}Entretenimento
-          {% else %}{{ article.category|capitalize }}
-          {% endif %}
-        </span>
-  <div class="articles-grid">
-    {% if articles %} {% for article in articles %}
-    <article class="article-card" data-category="{{ article.category }}">
-          <a href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
-        <img src="{{ article.image_url }}" alt="{{ article.title }}" />
-        <span class="article-category">
-          {% if article.category == 'tecnologia' %}Tecnologia
-          {% elif article.category == 'negocios' %}Negu00f3cios
-          {% elif article.category == 'ciencia' %}Ciu00eancia
-          {% elif article.category == 'saude' %}Sau00fade
-          {% elif article.category == 'entretenimento' %}Entretenimento
-          {% else %}{{ article.category|capitalize }}
-          {% endif %}
-        </span>
-      </div>
-      <div class="article-content">
-            href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
-          <a href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
-            >Ler Mais</aitle }}</a
-          >
-        </h2>
-        <p class="article-description">
-            action="{{ url_for('salvar_artigo', artigo_id=loop.index0) }}"
-        </p>
-        <div class="article-meta">
-          <span class="article-source">{{ article.source }}</span>
-            <button type="submit" class="btn btn-icon" title="Salvar Artigo">
-        </div>
-        <div class="article-actions">
-          <a
-            href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
-            class="btn btn-text"
-            >Ler Mais</
-          >
-          <form
-            method="POST"
-      <h2>Nenhum artigo encontrado</h2>salvar_artigo', artigo_id=loop.index0) }}"
-            class="inline-form"
-        Tente selecionar diferentes tu00f3picos nas suas preferu00eancias ou volte mais tarde
-        para novo conteu00fado."hidden" name="csrf_token" value="{{ csrf_token() }}" />
-            <button type="submit" class="btn btn-icon" title="Salvar Artigo">
-      <a href="{{ url_for('configurar') }}" class="btn btn-primary"
-        >Atualizar Preferu00eancias</a
-          </form>
-        </div>
-      </div>
-    </article>
-    {% endfor %} {% else %}
-    <div class="empty-state">
-      <span class="material-icons empty-icon">article</span>
-    <p>Buscando conteu00fado novo...</p>h2>
-      <p>
-        Tente selecionar diferentes tu00f3picos nas suas preferu00eancias ou volte mais tarde
-        para novo conteu00fado.
-      </p>
-      <a href="{{ url_for('configurar') }}" class="btn btn-primary"
-    // Funcionalidade de filtro0eancias</a
-      >
-    </div>
-    {% endif %}
+  <h1 class="page-title">
+    Seu <span class="highlight">Feed de Notícias</span>
+  </h1>
+  <div class="feed-controls">
+    <span class="filter-label">Filtrar por:</span>
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    {% for topic in topics %}
+    <button class="filter-btn" data-filter="{{ topic }}">
+      {% if topic == 'tecnologia' %}Tecnologia {% elif topic == 'negocios'
+      %}Negócios {% elif topic == 'ciencia' %}Ciência {% elif topic == 'saude'
+      %}Saúde {% elif topic == 'entretenimento' %}Entretenimento {% else %}{{
+      topic|capitalize }} {% endif %}
+    </button>
+    {% endfor %}
+    <button id="refresh-btn" class="btn btn-icon" title="Atualizar Feed">
+      <span class="material-icons">refresh</span>
+    </button>
   </div>
 
-  <div class="loading-indicator hidden">
-    <div class="spinner"></div>
-        // Atualiza botu00e3o ativovo...</p>
+  {% if articles %} {% for article in articles %}
+  <article class="article-card" data-category="{{ article.category }}">
+    <div class="article-image">
+      <img
+        src="{{ article.image_url }}"
+        alt="{{ article.title }}"
+        onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/fallback/' + article.category + '.jpg') }}'"
+      />
+      <span class="article-category">
+        {% if article.category == 'tecnologia' %}Tecnologia {% elif
+        article.category == 'negocios' %}Negócios {% elif article.category ==
+        'ciencia' %}Ciência {% elif article.category == 'saude' %}Saúde {% elif
+        article.category == 'entretenimento' %}Entretenimento {% else %}{{
+        article.category|capitalize }} {% endif %}
+      </span>
+    </div>
+    <div class="article-content">
+      <h2 class="article-title">
+        <a href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
+          >{{ article.title }}</a
+        >
+      </h2>
+      <p class="article-description">{{ article.description }}</p>
+      <div class="article-meta">
+        <span class="article-source">{{ article.source }}</span>
+      </div>
+      <div class="article-actions">
+        <a
+          href="{{ url_for('detalhe_artigo', artigo_id=loop.index0) }}"
+          class="btn btn-text"
+          >Ler Mais</a
+        >
+        <form
+          method="POST"
+          action="{{ url_for('salvar_artigo', artigo_id=loop.index0) }}"
+          class="inline-form"
+        >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button type="submit" class="btn btn-icon" title="Salvar Artigo">
+            <span class="material-icons">bookmark_border</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </article>
+  {% endfor %} {% else %}
+  <div class="empty-state">
+    <span class="material-icons empty-icon">article</span>
+    <h2>Nenhum artigo encontrado</h2>
+    <p>
+      Tente selecionar diferentes tópicos nas suas preferências ou volte mais
+      tarde para novo conteúdo.
+    </p>
+    <a href="{{ url_for('configurar') }}" class="btn btn-primary"
+      >Atualizar Preferências</a
+    >
   </div>
+  {% endif %}
+</div>
+
+<div class="loading-indicator hidden">
+  <p>Buscando conteúdo novo...</p>
 </div>
 {% endblock %} {% block extra_js %}
-        // Filtra artigos
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     // Funcionalidade de filtro
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -118,54 +93,48 @@ content %}
     filterButtons.forEach(button => {
       button.addEventListener('click', function () {
         const filter = this.getAttribute('data-filter');
-
-        // Atualiza botu00e3o ativo
+        // Atualiza botão ativo
         filterButtons.forEach(btn => btn.classList.remove('active'));
         this.classList.add('active');
-
-    // Funcionalidade de atualizau00e7u00e3o
+        // Filtra artigos
         articleCards.forEach(card => {
           if (
             filter === 'all' ||
             card.getAttribute('data-category') === filter
-      // Mostra indicador de carregamento
+          ) {
             card.style.display = 'flex';
           } else {
-      // Faz requisiu00e7u00e3o AJAX para atualizar notu00edcias
-      fetch('{{ url_for("atualizar_noticias") }}', {
+            card.style.display = 'none';
+          }
         });
       });
     });
 
-    // Funcionalidade de atualizau00e7u00e3o
+    // Funcionalidade de atualização
     const refreshBtn = document.getElementById('refresh-btn');
     const loadingIndicator = document.querySelector('.loading-indicator');
-
-          if (data.sucesso) {
-            // Recarrega a pu00e1gina para mostrar novo conteu00fado
+    refreshBtn.addEventListener('click', function () {
+      // Mostra indicador de carregamento
       loadingIndicator.classList.remove('hidden');
-
-            alert('Erro ao atualizar notu00edcias: ' + data.erro);edcias
+      // Faz requisição AJAX para atualizar notícias
       fetch('{{ url_for("atualizar_noticias") }}', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          console.error('Erro:', error);
-          alert('Ocorreu um erro ao atualizar as notu00edcias.');
+          'X-CSRFToken': '{{ csrf_token() }}',
+        },
       })
         .then(response => response.json())
         .then(data => {
-          if (data.sucesso) {
-            // Recarrega a pu00e1gina para mostrar novo conteu00fado
+          if (data.success) {
+            // Recarrega a página para mostrar novo conteúdo
             window.location.reload();
           } else {
-            alert('Erro ao atualizar notu00edcias: ' + data.erro);
+            alert('Erro ao atualizar notícias: ' + data.erro);
             loadingIndicator.classList.add('hidden');
           }
         })
         .catch(error => {
-          console.error('Erro:', error);
-          alert('Ocorreu um erro ao atualizar as notu00edcias.');
+          alert('Ocorreu um erro ao atualizar as notícias.');
           loadingIndicator.classList.add('hidden');
         });
     });
