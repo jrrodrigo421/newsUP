@@ -45,7 +45,7 @@ FONTES_NOTICIAS = {
         'https://www.medicalnewstoday.com/',
         'https://www.healthline.com/health-news'
     ],
-    'entretenimento': [
+    'entreterimento': [
         'https://variety.com/',
         'https://www.hollywoodreporter.com/',
         'https://deadline.com/'
@@ -191,7 +191,7 @@ def simular_busca_noticias(url_fonte, topico):
         'negocios': 'Negócios',
         'ciencia': 'Ciência',
         'saude': 'Saúde',
-        'entretenimento': 'Entretenimento'
+        'entreterimento': 'Entreterimento'
     }
     
     topico_pt = topicos_pt.get(topico, topico.capitalize())
